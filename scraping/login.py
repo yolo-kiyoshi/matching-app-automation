@@ -54,8 +54,8 @@ def login():
     time.sleep(2)
     # ブラウザ未保存
     set_browser(driver)
-    time.sleep(2)
     # ホーム画面に遷移
     driver.switch_to.window(driver.window_handles[0])
+    time.sleep(2)
 
     return driver

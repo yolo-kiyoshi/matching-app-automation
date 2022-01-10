@@ -13,15 +13,6 @@ docker-compose run --rm app python -m scraping.main
 docker-compose run --rm app python -m scraping.like
 ```
 
-## notebookを使用する場合
-
-```bash
-# コンテナを起動し、bash実行
-docker-compose run --rm app bash
-# コンテナ内でjupyterlabを起動する
-jupyter-lab --allow-root --ip=0.0.0.0 --port=8888 --no-browser --NotebookApp.token=''
-```
-
 ## formatter
 ```python
 docker-compose run --rm app make

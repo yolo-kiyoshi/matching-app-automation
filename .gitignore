@@ -3,4 +3,5 @@ data/*
 .vscode
 .ipynb_checkpoints
 __pycache__
+log/*
 !.gitkeep
