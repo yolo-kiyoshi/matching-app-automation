@@ -1,0 +1,45 @@
+[tool.poetry]
+name = "app"
+version = "0.1.0"
+description = ""
+authors = ["None"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+selenium = "^4.1.0"
+pyotp = "^2.6.0"
+urllib3 = "^1.26.7"
+bs4 = "^0.0.1"
+jupyterlab = "^3.2.5"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^4.0.1"
+black = "^21.12b0"
+isort = "^5.10.1"
+mypy = "^0.931"
+pyproject-flake8 = "^0.0.1-alpha.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+target-version = ['py39']
+line-length = 120
+
+[tool.isort]
+line_length = 120
+multi_line_output = 3
+include_trailing_comma = true
+known_local_folder=['config',]
+
+[tool.flake8]
+max-line-length = 120
+max-complexity = 18
+ignore = "E203,E266,W503,"
+
+[tool.mypy]
+python_version = "3.8"
+no_strict_optional = true
+ignore_missing_imports = true
+check_untyped_defs = true

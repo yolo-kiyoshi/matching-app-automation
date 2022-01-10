@@ -1,0 +1,6 @@
+data/*
+.env
+.vscode
+.ipynb_checkpoints
+__pycache__
+!.gitkeep
