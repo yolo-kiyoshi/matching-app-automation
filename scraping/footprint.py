@@ -4,6 +4,8 @@ import os
 import time
 
 from dateutil import tz
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 from scraping import parser, util
 from scraping.util import get_random_wait_time
@@ -15,14 +17,10 @@ logging.config.fileConfig(os.path.join(os.path.dirname(__file__), "..", "config/
 logging.getLogger("__name__")
 
 
-def footprint(driver):
-
-    now_str = datetime.datetime.now(JST).strftime("%Y%m%d%H%M%S")
-
-    # 検索画面
-    driver.get("https://pairs.lv/search")
-    time.sleep(2)
-
+def scroll_to_end(driver):
+    """
+    lazy loadに対応するためにページをスクロールする
+    """
     # lazy loadされてる部分を読み込むために、スクロールダウンしていく
     lastHeight = driver.execute_script("return document.body.scrollHeight")  # スクロールされてるか判断する部分
     while True:
@@ -34,6 +32,17 @@ def footprint(driver):
             break
         lastHeight = newHeight
 
+
+def footprint(driver):
+
+    now_str = datetime.datetime.now(JST).strftime("%Y%m%d%H%M%S")
+    wait = WebDriverWait(driver=driver, timeout=30)
+    wait.until(EC.presence_of_all_elements_located)
+    # 検索画面
+    driver.get("https://pairs.lv/search")
+    # lazy load対応
+    scroll_to_end(driver)
+
     # 検索画面上のuser_idを取得
     user_ids = parser.get_user_ids(driver.page_source)
     logging.info(f"there are {len(user_ids)} users on the search page.")
@@ -43,6 +52,11 @@ def footprint(driver):
     # まだ足跡をつけていないユーザー
     user_ids = list(set(user_ids) - set(footprinted_users))
     logging.info(f"there are {len(user_ids)} users who haven't been footprinted yet.")
+
+    # 対象ユーザーが存在しない場合
+    if len(user_ids) < 1:
+        logging.info("there are no footprint target users.")
+        return driver
 
     user_ids_successed = list()
     user_ids_failed = list()
