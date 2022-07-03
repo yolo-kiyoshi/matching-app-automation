@@ -46,12 +46,11 @@ def login():
     driver.switch_to.window(driver.window_handles[1])
 
     login_fb(driver, EMAIL, PASSWORD)
-    # # 3秒待機
-    time.sleep(3)
+    time.sleep(5)
     # 画面遷移、ワンタイムパスワード設定画面
     driver.switch_to.window(driver.window_handles[1])
     auth_otp(driver, OTP_CODE)
-    time.sleep(3)
+    time.sleep(5)
     # ブラウザ未保存
     set_browser(driver)
     # ホーム画面に遷移

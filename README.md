@@ -6,14 +6,12 @@
 
 ```bash
 # コンテナ起動
-docker-compose up -d
-# 足跡を付ける
-docker-compose run --rm app python -m scraping.main
+docker-compose up
 # 足跡のうちlikeを送っていないユーザーにlikeを送信する
-docker-compose run --rm app python -m scraping.like
+docker-compose run --rm scraping python -m scraping.like
 ```
 
 ## formatter
 ```python
-docker-compose run --rm app make
+docker-compose run --rm scraping make
 ```
