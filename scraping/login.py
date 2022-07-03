@@ -38,7 +38,7 @@ def login():
     driver = webdriver.Remote(command_executor=SELENIUM_URL, desired_capabilities=DesiredCapabilities.FIREFOX.copy())
     driver.get("https://pairs.lv")
     driver.implicitly_wait(5)
-    driver.find_element_by_xpath("/html/body/div[1]/div[1]/main/div/div[1]/button").click()
+    driver.find_element_by_xpath("/html/body/div[1]/div[1]/main/div/div[1]/div[2]/button[1]").click()
 
     # https://qiita.com/QUANON/items/285ad7157619b0da5c67
     # 新規ウィンドウを認識するまで待機
@@ -56,6 +56,6 @@ def login():
     set_browser(driver)
     # ホーム画面に遷移
     driver.switch_to.window(driver.window_handles[0])
-    time.sleep(3)
+    time.sleep(10)
 
     return driver

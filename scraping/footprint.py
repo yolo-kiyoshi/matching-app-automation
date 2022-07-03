@@ -36,10 +36,19 @@ def scroll_to_end(driver):
 def footprint(driver):
 
     now_str = datetime.datetime.now(JST).strftime("%Y%m%d%H%M%S")
-    wait = WebDriverWait(driver=driver, timeout=30)
-    wait.until(EC.presence_of_all_elements_located)
+    
+    try:
+        driver.find_element_by_css_selector("#onetrust-accept-btn-handler").click()
+        time.sleep(3)
+    except Exception as e:
+        print("confirming cookie is disable.")
+    
     # 検索画面
-    driver.get("https://pairs.lv/search")
+    # 初回はpick upにレンダリングされる可能性があるため、2回実施
+    for i in range(2):
+        driver.get("https://pairs.lv/search")
+        WebDriverWait(driver=driver, timeout=30).until(EC.presence_of_all_elements_located)
+
     # lazy load対応
     scroll_to_end(driver)
 
